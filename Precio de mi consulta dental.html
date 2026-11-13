@@ -1,0 +1,313 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Precio de mi consulta dental</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap">
+<style>
+/* Layout: encabezado azul, una columna de 3 pasos y resultado azul fijo a la derecha (abajo en celular). Azul y blanco dominan; el negro solo va en el texto */
+:root{
+  --bg:#eef4fc; --surface:#ffffff; --fg:#0b1220; --muted:#52627d; --line:#d3e0f2;
+  --accent:#1857d6; --accent-deep:#0b3a99; --accent-soft:#e3edfd; --accent-fg:#ffffff;
+  --input:#f3f8ff; --input-line:#b9cdee; --ok:#1857d6;
+  --hero-a:#0b3a99; --hero-b:#1857d6; --on-hero:#ffffff; --on-hero-2:rgba(255,255,255,.76); --hero-line:rgba(255,255,255,.22);
+  --font-body:'Inter',system-ui,sans-serif; --font-head:'Space Grotesk','Inter',system-ui,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#08111f; --surface:#0f1b33; --fg:#e8eefb; --muted:#93a6c8; --line:#1f3157;
+  --accent:#5b9bff; --accent-deep:#8db8ff; --accent-soft:#16294d; --accent-fg:#06142e;
+  --input:#13244a; --input-line:#2c457a; --ok:#8db8ff;
+  --hero-a:#10306f; --hero-b:#1a4cb8; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#08111f; --surface:#0f1b33; --fg:#e8eefb; --muted:#93a6c8; --line:#1f3157;
+  --accent:#5b9bff; --accent-deep:#8db8ff; --accent-soft:#16294d; --accent-fg:#06142e;
+  --input:#13244a; --input-line:#2c457a; --ok:#8db8ff;
+  --hero-a:#10306f; --hero-b:#1a4cb8; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font:14px/1.5 var(--font-body);padding-inline:max(16px,env(safe-area-inset-left,0px)) max(16px,env(safe-area-inset-right,0px));padding-block:24px 48px}
+.wrap{max-width:1040px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:24px;align-items:start}
+@media(max-width:860px){.wrap{grid-template-columns:minmax(0,1fr)}}
+header{grid-column:1/-1}
+h1{font:700 26px/1.2 var(--font-head);margin:0 0 4px;text-wrap:balance}
+header p{margin:0;color:var(--muted);max-width:62ch}
+.legend{display:inline-block;margin-top:10px;font-size:12px;color:var(--muted)}
+.legend i{display:inline-block;width:12px;height:12px;background:var(--input);border:1px solid var(--input-line);border-radius:3px;vertical-align:-2px;margin-right:4px}
+main{display:flex;flex-direction:column;gap:20px;min-width:0}
+section{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px;min-width:0}
+h2{font:700 17px/1.3 var(--font-head);margin:0 0 2px}
+.sub{color:var(--muted);margin:0 0 14px;font-size:13px}
+label.f{display:flex;flex-direction:column;gap:4px;font-size:12px;color:var(--muted);font-weight:500;min-width:0}
+input,select{font:inherit;color:var(--fg);background:var(--input);border:1px solid var(--input-line);border-radius:6px;padding:7px 9px;width:100%;min-width:0}
+input:focus-visible,select:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+input[type=number]{font-variant-numeric:tabular-nums}
+.grid4{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;margin-top:14px}
+.rows{display:flex;flex-direction:column;gap:8px}
+.row{display:grid;gap:8px;align-items:center}
+.r-fix{grid-template-columns:minmax(0,1fr) 120px 32px}
+.r-mat{grid-template-columns:minmax(0,1.6fr) minmax(0,1.2fr) 90px 80px 78px 32px}
+.r-use{grid-template-columns:minmax(0,1fr) 72px 84px 84px 32px}
+.hd{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:600}
+.cell{font-variant-numeric:tabular-nums;text-align:right}
+.x{border:0;background:transparent;color:var(--muted);font-size:18px;line-height:1;width:32px;height:32px;border-radius:6px;cursor:pointer}
+.x:hover{background:var(--accent-soft);color:var(--fg)}
+.add{margin-top:10px;background:transparent;border:1px dashed var(--accent);color:var(--accent);padding:7px 12px;border-radius:6px;font:600 13px var(--font-body);cursor:pointer}
+.add:hover{background:var(--accent-soft)}
+.tot{display:flex;justify-content:space-between;gap:12px;margin-top:14px;padding-top:12px;border-top:1px solid var(--line);font-weight:600}
+.tot span:last-child,.kv b{font-variant-numeric:tabular-nums}
+.scroll{overflow-x:auto}
+.scroll>.inner{min-width:560px}
+.kv{display:flex;justify-content:space-between;gap:12px;padding:5px 0}
+.kv span{color:var(--muted)}
+aside{position:sticky;top:16px;min-width:0}
+@media(max-width:860px){aside{position:static}}
+.res{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px}
+.price{font:700 38px/1.1 var(--font-head);color:var(--accent);margin:4px 0 2px;font-variant-numeric:tabular-nums}
+.lab{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:600}
+hr{border:0;border-top:1px solid var(--line);margin:12px 0}
+.min{color:var(--ok);font-weight:600}
+.note{font-size:12px;color:var(--muted);margin-top:12px}
+
+header{background:linear-gradient(120deg,var(--hero-a),var(--hero-b));color:var(--on-hero);border-radius:14px;padding:26px 24px}
+header h1{font-size:30px;letter-spacing:-.01em}
+header p{color:var(--on-hero-2)}
+header .legend{color:var(--on-hero-2)}
+header .legend i{background:var(--input);border-color:var(--input-line)}
+section{border-radius:14px;box-shadow:0 1px 2px rgba(11,58,153,.06),0 6px 18px rgba(11,58,153,.05)}
+h2{color:var(--accent-deep);font-size:18px;padding-bottom:10px;margin-bottom:6px;border-bottom:1px solid var(--line)}
+.sub{margin-top:8px}
+.hd{color:var(--accent)}
+.lab{color:var(--accent)}
+.tot{color:var(--accent-deep)}
+.kv b{color:var(--fg)}
+.add{border-style:solid;border-color:var(--accent-soft);background:var(--accent-soft);color:var(--accent-deep)}
+.add:hover{background:var(--accent);border-color:var(--accent);color:var(--accent-fg)}
+.res{background:linear-gradient(160deg,var(--hero-a),var(--hero-b));border:0;color:var(--on-hero);border-radius:14px;box-shadow:0 10px 28px rgba(11,58,153,.28)}
+.res .lab{color:var(--on-hero-2)}
+.res .price{color:var(--on-hero);font-size:42px}
+.res .kv span,.res .note{color:var(--on-hero-2)}
+.res .kv b{color:var(--on-hero)}
+.res hr{border-top-color:var(--hero-line)}
+.res .kv .min,.res b.min{color:#fff;font-weight:700}
+.res .note{font-size:11.5px}
+@media(max-width:520px){header{padding:20px 16px}header h1{font-size:24px}}
+.svbar{display:flex;flex-wrap:wrap;gap:8px;align-items:flex-end;background:var(--accent-soft);border-radius:10px;padding:12px}
+.svbar label.f{flex:1 1 220px}
+.svbar .add{margin-top:0;height:34px;background:var(--surface);border:1px solid var(--accent);color:var(--accent-deep)}
+.svbar .add:hover{background:var(--accent);color:var(--accent-fg)}
+.svbar .add.pri{background:var(--accent);color:var(--accent-fg)}
+.svbar .add.pri:hover{background:var(--accent-deep);border-color:var(--accent-deep);color:var(--accent-fg)}
+.svmsg{margin:8px 0 14px;min-height:18px;font-size:12px;color:var(--accent-deep);font-weight:500}
+</style>
+
+<div class="wrap">
+<header>
+  <h1>Precio de mi consulta dental</h1>
+  <p>Desglosa tus costos fijos, tus materiales y el tiempo de cada tratamiento para saber cuánto cobrar. Los datos que ves son ejemplos: cámbialos por los tuyos. Se guardan en este navegador.</p>
+  <span class="legend"><i></i>Celda azul claro: captura tu dato</span>
+</header>
+
+<main>
+<section>
+  <h2>1. Costos fijos mensuales</h2>
+  <p class="sub">Lo que pagas aunque no atiendas pacientes.</p>
+  <div class="rows" id="fixRows"></div>
+  <button class="add" id="addFix" type="button">+ Agregar gasto</button>
+  <div class="tot"><span>Total costos fijos</span><span id="fixTotal"></span></div>
+  <div class="grid4">
+    <label class="f">Horas de atención por día<input id="hDia" type="number" min="0" step="0.5"></label>
+    <label class="f">Días de trabajo al mes<input id="dMes" type="number" min="0" step="1"></label>
+    <label class="f">% de ocupación<input id="ocup" type="number" min="1" max="100" step="1"></label>
+    <label class="f">Tu honorario por hora ($)<input id="honor" type="number" min="0" step="10"></label>
+  </div>
+  <div class="kv" style="margin-top:12px"><span>Horas productivas al mes</span><b id="hProd"></b></div>
+  <div class="kv"><span>Costo fijo por hora</span><b id="cfHora"></b></div>
+  <div class="kv"><span>Costo por hora con tu honorario</span><b id="cHora"></b></div>
+</section>
+
+<section>
+  <h2>2. Materiales e insumos</h2>
+  <p class="sub">Costo por unidad = precio del paquete ÷ unidades que trae.</p>
+  <div class="scroll"><div class="inner">
+    <div class="row r-mat hd"><span>Material</span><span>Presentación</span><span>Precio</span><span>Unidades</span><span class="cell">Por unidad</span><span></span></div>
+    <div class="rows" id="matRows" style="margin-top:6px"></div>
+  </div></div>
+  <button class="add" id="addMat" type="button">+ Agregar material</button>
+</section>
+
+<section>
+  <h2>3. Servicio a cotizar</h2>
+  <p class="sub">Guarda cada tratamiento con sus materiales. Al elegirlo de la lista, los materiales, el tiempo y los costos se cargan solos.</p>
+  <div class="svbar">
+    <label class="f">Servicios guardados<select id="svSel" aria-label="Servicios guardados"></select></label>
+    <button class="add pri" id="svSave" type="button">Guardar servicio</button>
+    <button class="add" id="svNew" type="button">Nuevo</button>
+    <button class="add" id="svDel" type="button">Eliminar</button>
+  </div>
+  <p class="svmsg" id="svMsg" role="status"></p>
+  <div class="grid4" style="margin-top:0">
+    <label class="f" style="grid-column:span 2">Servicio<input id="srv" type="text"></label>
+    <label class="f">Tiempo (minutos)<input id="mins" type="number" min="0" step="5"></label>
+  </div>
+  <div class="scroll" style="margin-top:14px"><div class="inner">
+    <div class="row r-use hd"><span>Material usado</span><span>Cant.</span><span class="cell">Unitario</span><span class="cell">Subtotal</span><span></span></div>
+    <div class="rows" id="useRows" style="margin-top:6px"></div>
+  </div></div>
+  <button class="add" id="addUse" type="button">+ Agregar material al servicio</button>
+  <div class="grid4">
+    <label class="f">Laboratorio ($)<input id="lab" type="number" min="0" step="10"></label>
+    <label class="f">Otros costos directos ($)<input id="otros" type="number" min="0" step="10"></label>
+    <label class="f">Margen de utilidad (%)<input id="margen" type="number" min="0" step="1"></label>
+    <label class="f">IVA (%)<input id="iva" type="number" min="0" step="1"></label>
+  </div>
+</section>
+</main>
+
+<aside>
+  <div class="res">
+    <div class="lab" id="rName">Servicio</div>
+    <div class="lab" style="margin-top:10px">Precio final al paciente</div>
+    <div class="price" id="rFinal"></div>
+    <hr>
+    <div class="kv"><span>Materiales</span><b id="rMat"></b></div>
+    <div class="kv"><span>Costos fijos del tiempo</span><b id="rFix"></b></div>
+    <div class="kv"><span>Tu honorario</span><b id="rHon"></b></div>
+    <div class="kv"><span>Laboratorio y otros</span><b id="rLab"></b></div>
+    <hr>
+    <div class="kv"><span>Costo total</span><b id="rCost"></b></div>
+    <div class="kv"><span>Utilidad del negocio</span><b id="rUtil"></b></div>
+    <div class="kv"><span>Precio antes de IVA</span><b id="rPre"></b></div>
+    <div class="kv"><span>Precio mínimo (sin utilidad)</span><b class="min" id="rMin"></b></div>
+    <p class="note">El margen se aplica sobre el costo total. Muchos servicios dentales de profesionistas están exentos de IVA, por eso va en 0%; confírmalo con tu contador. No incluye ISR.</p>
+  </div>
+</aside>
+</div>
+
+<script>
+const KEY='dental-calc-v1';
+const DEF={
+  fix:[["Renta del consultorio",8000],["Luz",600],["Agua",250],["Internet y teléfono",500],["Sueldo de asistente",7000],["Depreciación de equipo",1500],["Limpieza y mantenimiento",600],["Software y facturación",400],["Publicidad",1000],["Seguros y permisos",500],["Contador",800]],
+  hDia:6,dMes:22,ocup:70,honor:300,
+  mat:[["Anestesia (carpule)","Caja 50",650,50],["Aguja dental corta","Caja 100",180,100],["Guantes (par)","Caja 50 pares",160,50],["Cubrebocas","Caja 50",90,50],["Eyector de saliva","Bolsa 100",70,100],["Babero desechable","Paq. 100",150,100],["Resina compuesta (obturación)","Jeringa, 8 usos",520,8],["Adhesivo y grabador (uso)","Kit, 40 usos",900,40],["Gasas","Paq. 200",60,200]],
+  srv:"Obturación con resina",mins:45,
+  use:[["Anestesia (carpule)",1],["Aguja dental corta",1],["Guantes (par)",1],["Cubrebocas",1],["Eyector de saliva",1],["Babero desechable",1],["Resina compuesta (obturación)",1],["Adhesivo y grabador (uso)",1],["Gasas",2]],
+  lab:0,otros:0,margen:30,iva:0
+};
+DEF.services=[
+ {name:"Obturación con resina",mins:45,lab:0,otros:0,margen:30,use:[["Anestesia (carpule)",1],["Aguja dental corta",1],["Guantes (par)",1],["Cubrebocas",1],["Eyector de saliva",1],["Babero desechable",1],["Resina compuesta (obturación)",1],["Adhesivo y grabador (uso)",1],["Gasas",2]]},
+ {name:"Limpieza dental",mins:30,lab:0,otros:0,margen:30,use:[["Guantes (par)",1],["Cubrebocas",1],["Eyector de saliva",1],["Babero desechable",1],["Gasas",2]]},
+ {name:"Extracción simple",mins:40,lab:0,otros:0,margen:30,use:[["Anestesia (carpule)",2],["Aguja dental corta",1],["Guantes (par)",1],["Cubrebocas",1],["Eyector de saliva",1],["Babero desechable",1],["Gasas",4]]}
+];
+let S;
+try{S=JSON.parse(localStorage.getItem(KEY))}catch(e){}
+if(!S||!S.fix)S=JSON.parse(JSON.stringify(DEF));
+if(!S.services)S.services=JSON.parse(JSON.stringify(DEF.services));
+const $=id=>document.getElementById(id);
+const fmt=n=>new Intl.NumberFormat('es-MX',{style:'currency',currency:'MXN'}).format(isFinite(n)?n:0);
+const num=v=>{const n=parseFloat(v);return isFinite(n)?n:0};
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+function el(h){const t=document.createElement('template');t.innerHTML=h.trim();return t.content.firstChild}
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;');
+const unitCost=name=>{const m=S.mat.find(x=>x[0]===name);return m&&num(m[3])>0?num(m[2])/num(m[3]):0};
+
+function fixRows(){
+  const box=$('fixRows');box.innerHTML='';
+  S.fix.forEach((r,i)=>{
+    const d=el(`<div class="row r-fix"><input type="text" aria-label="Concepto" value="${esc(r[0])}"><input type="number" min="0" step="10" aria-label="Monto" value="${r[1]}"><button class="x" type="button" aria-label="Quitar">×</button></div>`);
+    const [a,b,x]=d.children;
+    a.oninput=()=>{r[0]=a.value;save()};
+    b.oninput=()=>{r[1]=num(b.value);calc()};
+    x.onclick=()=>{S.fix.splice(i,1);fixRows();calc()};
+    box.appendChild(d);
+  });
+}
+function matRows(){
+  const box=$('matRows');box.innerHTML='';
+  S.mat.forEach((r,i)=>{
+    const d=el(`<div class="row r-mat"><input type="text" aria-label="Material" value="${esc(r[0])}"><input type="text" aria-label="Presentación" value="${esc(r[1])}"><input type="number" min="0" step="1" aria-label="Precio" value="${r[2]}"><input type="number" min="0" step="1" aria-label="Unidades" value="${r[3]}"><span class="cell"></span><button class="x" type="button" aria-label="Quitar">×</button></div>`);
+    const [a,p,pr,u,c,x]=d.children;
+    const upd=()=>{c.textContent=fmt(num(r[3])>0?num(r[2])/num(r[3]):0)};
+    a.oninput=()=>{r[0]=a.value;save()};
+    a.onchange=()=>{useRows();calc()};
+    p.oninput=()=>{r[1]=p.value;save()};
+    pr.oninput=()=>{r[2]=num(pr.value);upd();calc()};
+    u.oninput=()=>{r[3]=num(u.value);upd();calc()};
+    x.onclick=()=>{S.mat.splice(i,1);matRows();useRows();calc()};
+    upd();box.appendChild(d);
+  });
+}
+function useRows(){
+  const box=$('useRows');box.innerHTML='';
+  S.use.forEach((r,i)=>{
+    const opts=['<option value="">Elige un material</option>'].concat(S.mat.filter(m=>m[0]).map(m=>`<option value="${esc(m[0])}"${m[0]===r[0]?' selected':''}>${esc(m[0])}</option>`)).join('');
+    const d=el(`<div class="row r-use"><select aria-label="Material">${opts}</select><input type="number" min="0" step="0.5" aria-label="Cantidad" value="${r[1]}"><span class="cell"></span><span class="cell"></span><button class="x" type="button" aria-label="Quitar">×</button></div>`);
+    const [s,q,u,t,x]=d.children;
+    r._u=u;r._t=t;
+    s.onchange=()=>{r[0]=s.value;calc()};
+    q.oninput=()=>{r[1]=num(q.value);calc()};
+    x.onclick=()=>{S.use.splice(i,1);useRows();calc()};
+    box.appendChild(d);
+  });
+}
+function calc(){
+  const fixTot=S.fix.reduce((a,r)=>a+num(r[1]),0);
+  $('fixTotal').textContent=fmt(fixTot);
+  const hProd=num(S.hDia)*num(S.dMes)*num(S.ocup)/100;
+  const cf=hProd>0?fixTot/hProd:0;
+  $('hProd').textContent=hProd.toFixed(1)+' h';
+  $('cfHora').textContent=fmt(cf);
+  $('cHora').textContent=fmt(cf+num(S.honor));
+  let mat=0;
+  S.use.forEach(r=>{const u=unitCost(r[0]);const t=u*num(r[1]);mat+=t;if(r._u){r._u.textContent=fmt(u);r._t.textContent=fmt(t)}});
+  const h=num(S.mins)/60, fx=h*cf, hon=h*num(S.honor), lo=num(S.lab)+num(S.otros);
+  const cost=mat+fx+hon+lo, util=cost*num(S.margen)/100, pre=cost+util, fin=pre*(1+num(S.iva)/100);
+  $('rName').textContent=S.srv||'Servicio';
+  $('rFinal').textContent=fmt(fin);
+  $('rMat').textContent=fmt(mat);$('rFix').textContent=fmt(fx);$('rHon').textContent=fmt(hon);$('rLab').textContent=fmt(lo);
+  $('rCost').textContent=fmt(cost);$('rUtil').textContent=fmt(util);$('rPre').textContent=fmt(pre);$('rMin').textContent=fmt(cost);
+  save();
+}
+[['hDia'],['dMes'],['ocup'],['honor'],['mins'],['lab'],['otros'],['margen'],['iva']].forEach(([k])=>{
+  $(k).value=S[k];$(k).oninput=()=>{S[k]=num($(k).value);calc()};
+});
+$('srv').value=S.srv;$('srv').oninput=()=>{S.srv=$('srv').value;calc()};
+$('addFix').onclick=()=>{S.fix.push(["",0]);fixRows();calc()};
+$('addMat').onclick=()=>{S.mat.push(["","",0,1]);matRows();calc()};
+$('addUse').onclick=()=>{S.use.push(["",1]);useRows();calc()};
+function msg(t){$('svMsg').textContent=t}
+function svList(sel){
+  const o=$('svSel');
+  o.innerHTML='<option value="">Elegir un servicio guardado</option>'+S.services.map(v=>`<option value="${esc(v.name)}"${v.name===sel?' selected':''}>${esc(v.name)}</option>`).join('');
+}
+function syncInputs(){
+  ['mins','lab','otros','margen','srv'].forEach(k=>{$(k).value=S[k]});
+  useRows();calc();
+}
+$('svSel').onchange=()=>{
+  const v=S.services.find(x=>x.name===$('svSel').value);
+  if(!v)return;
+  S.srv=v.name;S.mins=v.mins;S.lab=v.lab;S.otros=v.otros;S.margen=v.margen;
+  S.use=v.use.map(r=>[r[0],r[1]]);
+  syncInputs();msg('Cargado: '+v.name+'. Los materiales se llenaron solos.');
+};
+$('svSave').onclick=()=>{
+  const name=(S.srv||'').trim();
+  if(!name){msg('Escribe el nombre del servicio antes de guardarlo.');return}
+  const rec={name,mins:num(S.mins),lab:num(S.lab),otros:num(S.otros),margen:num(S.margen),use:S.use.filter(r=>r[0]).map(r=>[r[0],num(r[1])])};
+  const i=S.services.findIndex(x=>x.name===name);
+  if(i>=0)S.services[i]=rec;else S.services.push(rec);
+  save();svList(name);msg(i>=0?'Actualizado: '+name:'Guardado: '+name);
+};
+$('svNew').onclick=()=>{
+  S.srv='';S.mins=0;S.lab=0;S.otros=0;S.use=[];
+  svList('');syncInputs();msg('Servicio nuevo. Escribe el nombre, agrega materiales y pulsa Guardar servicio.');
+  $('srv').focus();
+};
+$('svDel').onclick=()=>{
+  const n=$('svSel').value;
+  if(!n){msg('Elige primero el servicio que quieres eliminar.');return}
+  S.services=S.services.filter(x=>x.name!==n);
+  save();svList('');msg('Eliminado: '+n);
+};
+svList(S.services.some(v=>v.name===S.srv)?S.srv:'');
+fixRows();matRows();useRows();calc();
+</script>
+
+</body></html>
